@@ -20,7 +20,7 @@ import './filters/text.html';
 import './pager.html';
 import './header.html';
 
-var module = angular.module('ngTable-browser', [])
+var browserModule = angular.module('ngTable-browser', [])
     .directive('ngTable', ngTable)
     .factory('ngTableColumn', ngTableColumn)
     .directive('ngTableColumnsBinding', ngTableColumnsBinding)
@@ -37,4 +37,4 @@ var module = angular.module('ngTable-browser', [])
     .controller('ngTableSorterRowController', ngTableSorterRowController);
 
 export * from './public-interfaces';
-export { module as default };
+export { browserModule as default };

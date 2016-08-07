@@ -1,6 +1,7 @@
 import {
     IDataRowGroup, IDefaultGetData, IDefaults, IEventsChannel, IGroupingFunc, IGroupValues, InternalTableParams,
-    INgTableParams, IPageButton, IParamValues, ISettings, ITableParamsConstructor
+    INgTableParams, IPageButton, IParamValues, ISettings, ITableParamsConstructor,
+    default as coreModule
 } from '../src/core';
 
 describe('NgTableParams', () => {
@@ -11,8 +12,10 @@ describe('NgTableParams', () => {
     var scope: ng.IScope,
         NgTableParams: ITableParamsConstructor<any>,
         $rootScope: IScopeWithPrivates;
+    
+    beforeAll(() => expect(coreModule).toBeDefined());
 
-    beforeEach(angular.mock.module("ngTable"));
+    beforeEach(angular.mock.module("ngTable-core"));
     beforeEach(() => {
         angular.mock.module(($provide: ng.auto.IProvideService) => {
             $provide.decorator('ngTableDefaultGetData', createSpy);

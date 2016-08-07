@@ -8,16 +8,26 @@ module.exports = (env = { prod: false, debug: false }) => {
 }
 
 function createConfig(env, parts) {
-    return merge(
-        parts.asUmdLibrary(),
+
+    const common = merge(
         parts.excludeAngular(),
         parts.inlineHtmlTemplates(),
-        parts.extractSass([
-            path.join(__dirname, 'src', 'styles', 'ng-table.scss')
-        ]),
         parts.forEnvironment(),
         parts.typescript()
-        // todo: conflicts with ExtractTextPlugin
-        //,parts.banner()
     );
+
+    if (env.test) {
+        return merge(
+            parts.asTestBundle(),
+            common
+        );
+    } else {
+        return merge(
+            parts.asUmdLibrary(),
+            parts.extractSass([
+                path.join(__dirname, 'src', 'styles', 'ng-table.scss')
+            ]),
+            common
+        );
+    }
 }

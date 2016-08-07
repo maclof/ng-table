@@ -1,4 +1,4 @@
-import { SelectData, ISelectOption } from '../src/browser';
+import { SelectData, ISelectOption, default as browserModule } from '../src/browser';
 
 describe('ngTableSelectFilterDs directive', () => {
 
@@ -14,7 +14,9 @@ describe('ngTableSelectFilterDs directive', () => {
     let $scope: IColumnScope,
         elem: string,
         $compile: ng.ICompileService;
-    beforeEach(angular.mock.module('ngTable'));
+
+    beforeAll(() => expect(browserModule).toBeDefined());
+    beforeEach(angular.mock.module('ngTable-browser'));
 
     beforeEach(inject(($rootScope: ITableScope, _$compile_: ng.ICompileService) => {
         $scope = $rootScope.$new();

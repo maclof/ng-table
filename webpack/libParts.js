@@ -11,6 +11,7 @@ function createLibraryParts(rootDir, env = {}) {
     const libraryName = pkg.name;
 
     return {
+        asTestBundle,
         asUmdLibrary,
         banner,
         extractSass,
@@ -22,7 +23,17 @@ function createLibraryParts(rootDir, env = {}) {
 
     /////
 
-    function asUmdLibrary(entryFiles) {
+    function asTestBundle() {
+        return {
+            target: 'node',
+            output: {
+                filename: '[name].js',
+                path: path.join(rootDir, 'out', 'test')
+            }
+        }
+    }
+
+    function asUmdLibrary() {
         const filename = env.prod ? `[name].min.js` : `[name].js`;
         return {
             entry: {

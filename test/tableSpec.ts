@@ -1,3 +1,4 @@
+import ngTableModule from '../index';
 import { INgTableParams, IParamValues, ISettings, ISortingValues, ITableParamsConstructor } from '../src/core';
 import { IColumnDef, IFilterTemplateDef, IFilterTemplateDefMap, ISelectOption } from '../src/browser'
 
@@ -56,6 +57,7 @@ describe('ng-table', () => {
     ];
     var NgTableParams: ITableParamsConstructor<any>;
 
+    beforeAll(() => expect(ngTableModule).toBeDefined());
     beforeEach(angular.mock.module('ngTable'));
 
     var scope: ICustomizedScope;

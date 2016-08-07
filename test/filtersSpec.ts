@@ -1,10 +1,11 @@
-import { IFilterConfig, IFilterConfigProvider } from '../src/browser';
+import { IFilterConfig, IFilterConfigProvider, default as browserModule } from '../src/browser';
 
 describe('ngTableFilterConfig', () => {
     let ngTableFilterConfig: IFilterConfig,
         ngTableFilterConfigProvider: IFilterConfigProvider;
 
-    beforeEach(angular.mock.module("ngTable"));
+    beforeAll(() => expect(browserModule).toBeDefined());
+    beforeEach(angular.mock.module("ngTable-browser"));
     beforeEach(() => {
         angular.mock.module((_ngTableFilterConfigProvider_: IFilterConfigProvider) => {
             ngTableFilterConfigProvider = _ngTableFilterConfigProvider_;

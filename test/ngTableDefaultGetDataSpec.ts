@@ -1,4 +1,7 @@
-import { IDefaultGetDataProvider, IDefaultGetData, INgTableParams, ITableParamsConstructor } from '../src/core';
+import {
+    IDefaultGetDataProvider, IDefaultGetData, INgTableParams, ITableParamsConstructor,
+    default as coreModule
+} from '../src/core';
 
 describe('ngTableDefaultGetData', () => {
 
@@ -6,11 +9,13 @@ describe('ngTableDefaultGetData', () => {
         age: number;
     }
 
+    beforeAll(() => expect(coreModule).toBeDefined());
+
     describe('provider', () => {
 
         let ngTableDefaultGetDataProvider: IDefaultGetDataProvider;
 
-        beforeEach(angular.mock.module("ngTable"));
+        beforeEach(angular.mock.module("ngTable-core"));
         beforeEach(() => {
             angular.mock.module((_ngTableDefaultGetDataProvider_: IDefaultGetDataProvider) => {
                 ngTableDefaultGetDataProvider = _ngTableDefaultGetDataProvider_;
@@ -28,7 +33,7 @@ describe('ngTableDefaultGetData', () => {
         let ngTableDefaultGetData: IDefaultGetData<any>,
             tableParams: INgTableParams<any>;
 
-        beforeEach(angular.mock.module('ngTable'));
+        beforeEach(angular.mock.module('ngTable-core'));
 
         beforeEach(inject((
             _ngTableDefaultGetData_: IDefaultGetData<any>,
@@ -253,7 +258,7 @@ describe('ngTableDefaultGetData', () => {
 
         beforeEach(() => {
             // add a custom filter available to our tests
-            angular.mock.module('ngTable', ($provide: ng.auto.IProvideService) => {
+            angular.mock.module('ngTable-core', ($provide: ng.auto.IProvideService) => {
                 $provide.factory('myCustomFilterFilter', myCustomFilter)
             });
 
