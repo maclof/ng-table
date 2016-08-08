@@ -18,6 +18,7 @@ function createLibraryParts(rootDir, env = {}) {
         excludeAngular,
         forEnvironment,
         inlineHtmlTemplates,
+        testCoverage,
         typescript
     };
 
@@ -131,6 +132,10 @@ function createLibraryParts(rootDir, env = {}) {
                 // therefore instead using source-map
                 devtool: 'source-map'
             };
+        } else if (env.test) {
+            return {
+                devtool: 'source-map-inline'
+            };
         } else {
             return {
                 devtool: 'eval'
@@ -178,6 +183,20 @@ function createLibraryParts(rootDir, env = {}) {
         };
     }
 
+    function testCoverage() {
+        return {
+            module: {
+                postLoaders: [
+                    {
+                        test: /^((?!Spec\.ts).)*.ts$/,
+                        exclude: /node_modules/,
+                        loader: 'istanbul-instrumenter'
+                    }
+                ]
+            }
+        };
+    }
+
     function typescript() {
         const tsconfigPath = path.resolve('..', rootDir, 'tsconfig.json')
         return {
@@ -189,6 +208,7 @@ function createLibraryParts(rootDir, env = {}) {
                 loaders: [
                     {
                         test: /\.ts$/,
+                        exclude: /node_modules/,
                         loader: `awesome-typescript?tsconfig=${tsconfigPath}`
                     }
                 ]

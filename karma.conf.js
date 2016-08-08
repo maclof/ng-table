@@ -22,10 +22,16 @@ module.exports = function (config) {
         // generate js files from html templates
         preprocessors: {
             [testGlob]: ['webpack']
-            // './dist/ng-table.js': ['coverage']
         },
         webpack: webpackConfig,
-        webpackMiddleware: {noInfo: true},
+        webpackMiddleware: {
+            stats: {
+                chunks: false,
+                chunkModules: false,
+                colors: true,
+                hash: false
+            }
+        },
         reporters: ['progress', 'coverage'],
         colors: true,
         logLevel: config.LOG_INFO,
@@ -34,6 +40,7 @@ module.exports = function (config) {
         coverageReporter: {
             reporters: [
                 { type: 'lcov', dir: 'out/coverage' },
+                { type: 'cobertura', dir: 'out/coverage' },
                 { type: 'json', dir: 'out/coverage' },
                 { type: 'text-summary' }
             ]
